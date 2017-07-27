@@ -13,6 +13,8 @@ import (
 	"github.com/mgutz/ansi"
 )
 
+const defaultTimestampFormat = time.RFC3339
+
 var (
 	baseTimestamp      time.Time    = time.Now()
 	defaultColorScheme *ColorScheme = &ColorScheme{
@@ -173,7 +175,9 @@ func (f *TextFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	isFormatted := f.ForceFormatting || f.isTerminal
 
 	timestampFormat := f.TimestampFormat
-
+	if timestampFormat == "" {
+		timestampFormat = defaultTimestampFormat
+	}
 	if isFormatted {
 		isColored := (f.ForceColors || f.isTerminal) && !f.DisableColors
 		var colorScheme *compiledColorScheme
