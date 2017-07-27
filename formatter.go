@@ -173,9 +173,7 @@ func (f *TextFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	isFormatted := f.ForceFormatting || f.isTerminal
 
 	timestampFormat := f.TimestampFormat
-	if timestampFormat == "" {
-		timestampFormat = logrus.DefaultTimestampFormat
-	}
+
 	if isFormatted {
 		isColored := (f.ForceColors || f.isTerminal) && !f.DisableColors
 		var colorScheme *compiledColorScheme
